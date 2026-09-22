@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- スマホ画面に合わせる設定 -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <title>宇宙人カメラ</title>
+
+  <!-- CSSを読み込む -->
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <main class="app">
+
+    <!-- スマホのカメラ映像 -->
+    <video
+      id="camera"
+      autoplay
+      muted
+      playsinline
+    ></video>
+
+    <!-- 画像を認識する処理に使う非表示のキャンバス -->
+    <canvas id="detectCanvas" hidden></canvas>
+
+    <!-- 最初に表示する画面 -->
+    <section id="startScreen" class="start-screen">
+      <p class="english-title">ALIEN CAMERA</p>
+
+      <h1>
+        宇宙人を<br>
+        見つけよう
+      </h1>
+
+      <p class="description">
+        カメラを宇宙人のイラストに向けると、<br>
+        ふよふよ浮かぶ宇宙人が現れます。
+      </p>
+
+      <button id="startButton" class="start-button" type="button">
+        カメラをひらく
+      </button>
+
+      <p class="privacy-text">
+        写真やカメラ映像は外部に送信されません。
+      </p>
+    </section>
+
+    <!-- カメラ起動後の画面 -->
+    <section id="cameraScreen" class="camera-screen" hidden>
+
+      <!-- 上部の表示 -->
+      <header class="camera-header">
+        <button
+          id="closeButton"
+          class="close-button"
+          type="button"
+          aria-label="カメラを閉じる"
+        >
+          ×
+        </button>
+
+        <div id="status" class="status">
+          <span class="status-light"></span>
+          <span id="statusText">宇宙人を探しています</span>
+        </div>
+      </header>
+
+      <!-- 宇宙人の絵を合わせる枠 -->
+      <div id="finder" class="finder">
+        <span class="corner top-left"></span>
+        <span class="corner top-right"></span>
+        <span class="corner bottom-left"></span>
+        <span class="corner bottom-right"></span>
+
+        <p>宇宙人の絵を枠に入れてね</p>
+      </div>
+
+      <!-- 認識後に出現する宇宙人 -->
+      <div id="alien" class="alien" aria-hidden="true">
+        <img
+          id="alienImage"
+          src="./assets/alien-open.png"
+          alt=""
+        >
+      </div>
+
+      <!-- 撮影ボタン -->
+      <div class="camera-controls">
+        <button
+          id="shutterButton"
+          class="shutter-button"
+          type="button"
+          aria-label="写真を撮る"
+          disabled
+        >
+          <span></span>
+        </button>
+
+        <p id="shutterMessage">
+          宇宙人を見つけると撮影できます
+        </p>
+      </div>
+    </section>
+
+    <!-- 撮影後の確認画面 -->
+    <section id="resultScreen" class="result-screen" hidden>
+
+      <img
+        id="resultImage"
+        class="result-image"
+        alt="撮影した写真"
+      >
+
+      <div class="result-buttons">
+        <button
+          id="retryButton"
+          class="retry-button"
+          type="button"
+        >
+          撮り直す
+        </button>
+
+        <a
+          id="saveButton"
+          class="save-button"
+          download="alien-photo.png"
+        >
+          写真を保存
+        </a>
+      </div>
+    </section>
+
+    <!-- エラーメッセージ -->
+    <div
+      id="errorMessage"
+      class="error-message"
+      role="alert"
+      hidden
+    ></div>
+
+  </main>
+
+  <!-- JavaScriptを読み込む -->
+  <script src="./app.js"></script>
+</body>
+</html>

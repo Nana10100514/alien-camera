@@ -1,0 +1,709 @@
+/* ==============================
+   基本設定
+============================== */
+
+:root {
+  font-family:
+    "Hiragino Sans",
+    "Yu Gothic",
+    "Meiryo",
+    sans-serif;
+
+  color: #ffffff;
+  background-color: #061923;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background-color: #061923;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+
+/* ==============================
+   アプリ全体
+============================== */
+
+.app {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      #174355 0%,
+      #061923 68%
+    );
+}
+
+
+/* ==============================
+   カメラ映像
+============================== */
+
+#camera {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  background-color: #02090c;
+}
+
+
+/* ==============================
+   最初の画面
+============================== */
+
+.start-screen {
+  position: absolute;
+  z-index: 10;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding:
+    max(48px, env(safe-area-inset-top))
+    28px
+    max(32px, env(safe-area-inset-bottom));
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 80% 15%,
+      rgba(205, 255, 84, 0.25),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 20% 40%,
+      rgba(98, 204, 171, 0.2),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      #123b4a 0%,
+      #061923 75%
+    );
+}
+
+/* 背景に表示する惑星 */
+
+.start-screen::before {
+  content: "";
+
+  position: absolute;
+  top: -90px;
+  right: -100px;
+
+  width: 330px;
+  height: 330px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #63ccb0,
+      #cdff54
+    );
+
+  box-shadow:
+    0 0 80px rgba(177, 255, 93, 0.25);
+
+  opacity: 0.9;
+}
+
+/* 惑星の輪 */
+
+.start-screen::after {
+  content: "";
+
+  position: absolute;
+  top: 75px;
+  right: -130px;
+
+  width: 420px;
+  height: 90px;
+
+  border: 16px solid rgba(255, 255, 255, 0.5);
+  border-top-color: transparent;
+
+  border-radius: 50%;
+
+  transform: rotate(-18deg);
+}
+
+.english-title,
+.start-screen h1,
+.description,
+.start-button,
+.privacy-text {
+  position: relative;
+  z-index: 2;
+}
+
+.english-title {
+  margin: 0 0 10px;
+
+  color: #cdff54;
+
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+}
+
+.start-screen h1 {
+  margin: 0;
+
+  font-size: clamp(50px, 15vw, 78px);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.description {
+  margin: 24px 0 28px;
+
+  color: #d6e5e9;
+
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.start-button {
+  width: 100%;
+  min-height: 58px;
+
+  padding: 14px 24px;
+
+  color: #09202a;
+  background-color: #cdff54;
+
+  border: none;
+  border-radius: 999px;
+
+  font-size: 16px;
+  font-weight: 800;
+
+  box-shadow:
+    0 14px 35px rgba(171, 243, 65, 0.22);
+
+  transition:
+    transform 0.2s,
+    opacity 0.2s;
+}
+
+.start-button:active {
+  transform: scale(0.97);
+}
+
+.privacy-text {
+  margin: 14px 0 0;
+
+  color: #8da8b2;
+
+  text-align: center;
+  font-size: 12px;
+}
+
+
+/* ==============================
+   カメラ画面
+============================== */
+
+.camera-screen {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+}
+
+/* カメラ画面上下の暗いグラデーション */
+
+.camera-screen::after {
+  content: "";
+
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2, 12, 17, 0.6) 0%,
+      transparent 25%,
+      transparent 65%,
+      rgba(2, 12, 17, 0.8) 100%
+    );
+}
+
+
+/* ==============================
+   カメラ画面上部
+============================== */
+
+.camera-header {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding:
+    max(14px, env(safe-area-inset-top))
+    16px
+    12px;
+}
+
+.close-button {
+  display: grid;
+  place-items: center;
+
+  width: 44px;
+  height: 44px;
+  padding: 0;
+
+  color: #ffffff;
+  background-color: rgba(5, 22, 29, 0.5);
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+
+  font-size: 28px;
+  line-height: 1;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-left: auto;
+  padding: 10px 14px;
+
+  color: #ffffff;
+  background-color: rgba(5, 22, 29, 0.62);
+
+  border-radius: 999px;
+
+  font-size: 13px;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.status-light {
+  width: 8px;
+  height: 8px;
+
+  flex-shrink: 0;
+
+  background-color: #ffd95a;
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 12px #ffd95a;
+}
+
+/* 宇宙人を発見したとき、
+   JavaScriptでstatusにfoundを追加します */
+
+.status.found .status-light {
+  background-color: #cdff54;
+
+  box-shadow:
+    0 0 12px #cdff54;
+}
+
+
+/* ==============================
+   認識用のガイド枠
+============================== */
+
+.finder {
+  position: absolute;
+  z-index: 4;
+
+  top: 48%;
+  left: 50%;
+
+  width: min(76vw, 370px);
+  aspect-ratio: 1.07;
+
+  transform: translate(-50%, -50%);
+
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+}
+
+.finder p {
+  position: absolute;
+
+  left: 50%;
+  bottom: -48px;
+
+  width: max-content;
+  max-width: 90vw;
+
+  margin: 0;
+  padding: 8px 13px;
+
+  color: #ffffff;
+  background-color: rgba(3, 17, 23, 0.7);
+
+  border-radius: 999px;
+
+  font-size: 13px;
+
+  transform: translateX(-50%);
+}
+
+.corner {
+  position: absolute;
+
+  width: 42px;
+  height: 42px;
+
+  border-color: #cdff54;
+  border-style: solid;
+
+  filter:
+    drop-shadow(
+      0 0 8px rgba(205, 255, 84, 0.6)
+    );
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+
+  border-width: 3px 0 0 3px;
+  border-radius: 12px 0 0 0;
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+
+  border-width: 3px 3px 0 0;
+  border-radius: 0 12px 0 0;
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+
+  border-width: 0 0 3px 3px;
+  border-radius: 0 0 0 12px;
+}
+
+.bottom-right {
+  right: 0;
+  bottom: 0;
+
+  border-width: 0 3px 3px 0;
+  border-radius: 0 0 12px 0;
+}
+
+
+/* ==============================
+   出現する宇宙人
+============================== */
+
+.alien {
+  position: absolute;
+  z-index: 6;
+
+  top: 18%;
+  right: 2%;
+
+  width: min(53vw, 270px);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transform:
+    translateY(20px)
+    scale(0.7);
+
+  filter:
+    drop-shadow(
+      0 20px 28px rgba(5, 30, 25, 0.45)
+    );
+
+  transition:
+    opacity 0.35s,
+    transform 0.45s
+    cubic-bezier(0.2, 0.9, 0.2, 1.2);
+}
+
+.alien img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+/* JavaScriptでvisibleクラスを追加すると表示 */
+
+.alien.visible {
+  opacity: 1;
+
+  transform:
+    translateY(0)
+    scale(1);
+
+  animation:
+    floating 3.2s
+    ease-in-out
+    infinite;
+}
+
+@keyframes floating {
+  0%,
+  100% {
+    translate: 0 -7px;
+    rotate: -1deg;
+  }
+
+  50% {
+    translate: 0 10px;
+    rotate: 1.5deg;
+  }
+}
+
+
+/* ==============================
+   シャッターボタン
+============================== */
+
+.camera-controls {
+  position: absolute;
+  z-index: 10;
+
+  left: 0;
+  right: 0;
+  bottom: max(24px, env(safe-area-inset-bottom));
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.shutter-button {
+  width: 76px;
+  height: 76px;
+
+  padding: 5px;
+
+  background-color: transparent;
+
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+
+  transition:
+    transform 0.15s,
+    opacity 0.2s;
+}
+
+.shutter-button span {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: #ffffff;
+
+  border-radius: 50%;
+}
+
+.shutter-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+.shutter-button:not(:disabled):active {
+  transform: scale(0.9);
+}
+
+#shutterMessage {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  font-size: 12px;
+}
+
+
+/* ==============================
+   撮影結果画面
+============================== */
+
+.result-screen {
+  position: absolute;
+  z-index: 20;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: #061923;
+}
+
+.result-image {
+  width: 100%;
+  min-height: 0;
+
+  flex: 1;
+
+  object-fit: contain;
+}
+
+.result-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 10px;
+
+  padding:
+    18px
+    18px
+    max(18px, env(safe-area-inset-bottom));
+}
+
+.retry-button,
+.save-button {
+  display: grid;
+  place-items: center;
+
+  min-height: 58px;
+  padding: 14px 18px;
+
+  border-radius: 999px;
+
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.retry-button {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.14);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.25);
+}
+
+.save-button {
+  color: #09202a;
+  background-color: #cdff54;
+
+  border: none;
+}
+
+
+/* ==============================
+   エラーメッセージ
+============================== */
+
+.error-message {
+  position: absolute;
+  z-index: 30;
+
+  right: 18px;
+  bottom: 24px;
+  left: 18px;
+
+  padding: 16px;
+
+  color: #ffffff;
+  background-color: #a52e3b;
+
+  border-radius: 16px;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ==============================
+   パソコンで表示した場合
+============================== */
+
+@media screen and (min-width: 700px) {
+  body {
+    background-color: #020a0e;
+  }
+
+  .app {
+    max-width: 520px;
+    margin: 0 auto;
+
+    box-shadow:
+      0 0 70px rgba(0, 0, 0, 0.8);
+  }
+}
+
+
+/* ==============================
+   アニメーション軽減設定
+============================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .alien.visible {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
